@@ -27,14 +27,14 @@ const NoteForm = () => {
         updateNote({
           ...currentNote,
           ...data,
-          categoryIds: data.categories.map((c) => Number(c.id))
+          categoryIds: data.categories?.map((c) => Number(c.id)) || []
         })
       )
     } else {
       dispatch(
         addNote({
           ...data,
-          categoryIds: data.categories.map((c) => Number(c.id))
+          categoryIds: data.categories?.map((c) => Number(c.id)) || []
         })
       )
     }

@@ -1,0 +1,42 @@
+services:
+  postgres:
+    image: postgres:17
+    container_name: notes_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: notes
+      POSTGRES_PASSWORD: notes_pass
+      POSTGRES_DB: notesdb
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  backend:
+    image: notes-backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: notes_backend
+    restart: unless-stopped
+    depends_on:
+      - postgres
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+    ports:
+      - "8080:8080"
+
+  frontend:
+    image: notes-frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: notes_frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "5173:80"
+
+volumes:
+  pgdata:
