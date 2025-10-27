@@ -5,7 +5,7 @@ import { setCurrentNote, setIsEditing, type Note } from './notesSlice'
 import { InputText } from 'primereact/inputtext'
 import { Button } from 'primereact/button'
 import { useEffect, useState } from 'react'
-import { addNote, updateNote } from './notesApi'
+import { addNote, updateNote, fetchNotes } from './notesApi'
 import { fetchCategories } from '../categories/categoriesApi'
 import { MultiSelect } from 'primereact/multiselect'
 
@@ -62,7 +62,19 @@ const NoteForm = () => {
 
   return (
     <form onSubmit={form.handleSubmit(onSubmit)} className="p-4 flex flex-col gap-4 w-full">
-      <h1 className="text-xl font-semibold text-slate-800">Create / Edit Note</h1>
+      <div className="flex items-center justify-between w-full">
+        <h1 className="text-xl font-semibold text-slate-800">Create / Edit Note</h1>
+        <Button
+          icon="pi pi-refresh"
+          className="p-button-secondary p-button-rounded"
+          onClick={(e) => {
+            e.preventDefault()
+            dispatch(fetchNotes())
+            dispatch(fetchCategories())
+          }}
+          tooltip="Refresh Notes"
+        />
+      </div>
       <Controller
         name="title"
         control={form.control}

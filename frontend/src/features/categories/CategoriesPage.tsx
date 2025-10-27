@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import type { RootState, AppDispatch } from '../../app/store'
 import { fetchCategories, deleteCategory } from './categoriesApi'
@@ -8,7 +8,7 @@ import { Column } from 'primereact/column'
 import { Button } from 'primereact/button'
 import type { Category } from './categoriesSlice'
 
-const CategoriesPage: React.FC = () => {
+const CategoriesPage = () => {
   const dispatch = useDispatch<AppDispatch>()
   const { categories, loading } = useSelector((state: RootState) => state.categories)
 
@@ -34,12 +34,12 @@ const CategoriesPage: React.FC = () => {
             <Column field="name" header="Category" />
             <Column
               style={{ width: '10%' }}
-              header="Actions"
               body={(category: Category) => (
                 <Button
                   icon="pi pi-trash"
                   className="p-button-danger p-button-rounded"
                   onClick={() => handleDelete(category.id)}
+                  tooltip='Delete Category'
                 />
               )}
             />

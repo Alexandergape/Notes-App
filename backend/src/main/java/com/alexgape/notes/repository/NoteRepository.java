@@ -14,8 +14,6 @@ public interface NoteRepository extends JpaRepository<NoteEntity, Long> {
     @Query("SELECT n FROM NoteEntity n JOIN n.categories c WHERE c.id = :categoryId")
     List<NoteEntity> findByCategoryId(@Param("categoryId") Long categoryId);
 
-    //    @Query("SELECT n FROM NoteEntity n JOIN n.categories c WHERE LOWER(c.name) = LOWER(:categoryName)")
-//    List<NoteEntity> findByCategoryName(@Param("categoryName") String categoryName);
     @Query("SELECT n FROM NoteEntity n JOIN n.categories c WHERE LOWER(c.name) LIKE LOWER(CONCAT('%', :categoryName, '%'))")
     List<NoteEntity> findByCategoryName(@Param("categoryName") String categoryName);
 }

@@ -8,6 +8,15 @@ Notes App
 
 This repository contains a small Notes application with categories/tags. It has a Java Spring Boot backend and a Vite + React + TypeScript frontend. The project is set up to run via Docker (recommended) or locally using the native runtimes.
 
+## Deployed version
+
+A deployed version of the application is available at: http://34.58.16.29:5173/
+
+Credentials for the demo instance:
+
+- Username: admin
+- Password: admin
+
 ## Repository layout
 
 - `backend/` — Spring Boot application (controllers, services, repositories).

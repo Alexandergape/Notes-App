@@ -80,6 +80,7 @@ const NotesList = () => {
                 icon="pi pi-trash"
                 className="p-button-danger p-button-rounded"
                 onClick={() => handleDelete(note.id)}
+                tooltip="Delete Note"
               />
             )}
           />
@@ -92,6 +93,7 @@ const NotesList = () => {
                 onClick={() => {
                   dispatch(setCurrentNote(note))
                 }}
+                tooltip="Edit Note"
               />
             )}
           />
@@ -99,6 +101,7 @@ const NotesList = () => {
             style={{ width: '10%' }}
             body={(note: Note) => (
               <Button
+                tooltip="Toggle Archive"
                 icon={note.archived ? 'pi pi-folder-open' : 'pi pi-folder'}
                 className={
                   note.archived

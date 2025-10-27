@@ -23,9 +23,6 @@ public class CategoryService implements CategoryServiceInterface {
 
     @Override
     public CategoryResponse createCategory(CategoryRequest categoryRequest) {
-//        if (categoryRepository.findByName(categoryRequest.getName()).isPresent()) {
-//            throw new RuntimeException("Category already exists: " + categoryRequest.getName());
-//        }
         if (categoryRepository.existsByName(categoryRequest.getName())) {
             throw new RuntimeException("Category already exists: " + categoryRequest.getName());
         }

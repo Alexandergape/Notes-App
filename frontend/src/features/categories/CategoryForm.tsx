@@ -1,4 +1,3 @@
-import React from 'react'
 import { useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
 import type { AppDispatch } from '../../app/store'
@@ -10,7 +9,7 @@ interface CategoryFormData {
   name: string
 }
 
-const CategoryForm: React.FC = () => {
+const CategoryForm = () => {
   const dispatch = useDispatch<AppDispatch>()
   const { register, handleSubmit, reset } = useForm<CategoryFormData>()
 
