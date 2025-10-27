@@ -41,7 +41,7 @@ const NotesList = () => {
     } else {
       setDisplayedNotes(showArchived ? archivedNotes : notes)
     }
-  }, [dispatch, selectedCategories])
+  }, [dispatch, selectedCategories, showArchived, archivedNotes, notes])
 
   const handleDelete = (id: number) => {
     dispatch(deleteNote(id))
@@ -58,57 +58,61 @@ const NotesList = () => {
   return (
     <div className="p-4">
       <div className="flex items-center justify-between mb-4">
-        <h1 className="text-2xl col-span-5">Notes</h1>
+        <h1 className="text-xl font-semibold text-slate-800">Notes</h1>
         <Button
           label={archivedTitle}
           icon="pi pi-folder"
-          className="p-button-secondary col-span-1"
+          className="p-button-secondary"
           onClick={() => {
             setShowArchived(!showArchived)
-            // setCurrentNotes(archivedNotes)
           }}
         />
       </div>
 
-      <DataTable value={displayedNotes} loading={loading} stripedRows>
-        <Column field="title" header="Title" />
-        <Column field="content" header="Content" />
-        {/* <Column field="archived" header="Archived" /> */}
-        <Column
-          header=""
-          body={(note: Note) => (
-            <Button
-              icon="pi pi-trash"
-              className="p-button-danger"
-              onClick={() => handleDelete(note.id)}
-            />
-          )}
-        />
-        <Column
-          header=""
-          body={(note: Note) => (
-            <Button
-              icon="pi pi-pencil"
-              // className="p-button-warning"
-              onClick={() => {
-                dispatch(setCurrentNote(note))
-              }}
-            />
-          )}
-        />
-        <Column
-          header=""
-          body={(note: Note) => (
-            <Button
-              icon={note.archived ? 'pi pi-folder-open' : 'pi pi-folder'}
-              className={note.archived ? 'p-button-success' : 'p-button-secondary'}
-              onClick={() => {
-                dispatch(toggleArchiveNote(note.id))
-              }}
-            />
-          )}
-        />
-      </DataTable>
+      <div className="rounded-lg overflow-hidden">
+        <DataTable value={displayedNotes} loading={loading} stripedRows>
+          <Column field="title" header="Title" />
+          <Column field="content" header="Content" />
+          <Column
+            style={{ width: '10%' }}
+            body={(note: Note) => (
+              <Button
+                icon="pi pi-trash"
+                className="p-button-danger p-button-rounded"
+                onClick={() => handleDelete(note.id)}
+              />
+            )}
+          />
+          <Column
+            style={{ width: '10%' }}
+            body={(note: Note) => (
+              <Button
+                icon="pi pi-pencil"
+                className="p-button-rounded"
+                onClick={() => {
+                  dispatch(setCurrentNote(note))
+                }}
+              />
+            )}
+          />
+          <Column
+            style={{ width: '10%' }}
+            body={(note: Note) => (
+              <Button
+                icon={note.archived ? 'pi pi-folder-open' : 'pi pi-folder'}
+                className={
+                  note.archived
+                    ? 'p-button-success p-button-rounded'
+                    : 'p-button-secondary p-button-rounded'
+                }
+                onClick={() => {
+                  dispatch(toggleArchiveNote(note.id))
+                }}
+              />
+            )}
+          />
+        </DataTable>
+      </div>
     </div>
   )
 }

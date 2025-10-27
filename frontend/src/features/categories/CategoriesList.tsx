@@ -15,16 +15,16 @@ const CategoriesList = () => {
   }, [dispatch])
 
   return (
-    <div className="p-4">
-      <h2 className="text-xl font-semibold mb-4">Categories</h2>
-      <div className="mb-6">
+    <div className="bg-white/50 border rounded-xl p-4 mb-6 shadow-sm">
+      <h2 className="text-lg font-medium mb-3 text-slate-700">Categories</h2>
+      <div className='w-full'>
         <MultiSelect
           value={selectedCategories}
           options={categories.map((c) => ({ label: c.name, value: c.id }))}
           onChange={(e) => dispatch(setSelectedCategories(e.value))}
           placeholder="Filter by categories"
           display="chip"
-          className="w-full md:w-30rem"
+          className="w-full"
           showClear
         />
       </div>

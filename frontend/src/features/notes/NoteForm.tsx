@@ -58,14 +58,11 @@ const NoteForm = () => {
     } else {
       setAcceptLabel('Add Note')
     }
-  }, [isEditing, currentNote])
+  }, [isEditing, currentNote, form])
 
   return (
-    <form
-      onSubmit={form.handleSubmit(onSubmit)}
-      className="p-4 flex flex-col gap-3 w-full max-w-md"
-    >
-      <h1 className="text-2xl font-bold">Note Form</h1>
+    <form onSubmit={form.handleSubmit(onSubmit)} className="p-4 flex flex-col gap-4 w-full">
+      <h1 className="text-xl font-semibold text-slate-800">Create / Edit Note</h1>
       <Controller
         name="title"
         control={form.control}
@@ -73,7 +70,7 @@ const NoteForm = () => {
         rules={{ required: 'Title is required' }}
         render={({ field, fieldState }) => (
           <div className="flex flex-col">
-            <InputText {...field} placeholder="Title" className="w-full" />
+            <InputText {...field} placeholder="Title" className="w-full p-3 rounded-lg shadow-sm" />
             {fieldState.error && (
               <span className="text-red-500 text-sm mt-1">{fieldState.error.message}</span>
             )}
@@ -88,7 +85,11 @@ const NoteForm = () => {
         rules={{ required: 'Content is required' }}
         render={({ field, fieldState }) => (
           <div className="flex flex-col">
-            <InputText {...field} placeholder="Content" className="w-full" />
+            <InputText
+              {...field}
+              placeholder="Content"
+              className="w-full p-3 rounded-lg shadow-sm"
+            />
             {fieldState.error && (
               <span className="text-red-500 text-sm mt-1">{fieldState.error.message}</span>
             )}
@@ -102,7 +103,6 @@ const NoteForm = () => {
           <MultiSelect
             {...field}
             options={categories}
-            // options={categories.map((c) => ({ label: c.name, value: c.id }))}
             placeholder="Select categories"
             optionLabel="name"
             display="chip"
@@ -111,14 +111,21 @@ const NoteForm = () => {
         )}
       />
 
-      <Button type="submit" label={acceptLabel} icon={isEditing ? 'pi pi-pencil' : 'pi pi-plus'} />
-      <Button
-        type="button"
-        label="Cancel"
-        onClick={handleCancel}
-        icon="pi pi-times"
-        className="p-button-secondary"
-      />
+      <div className="flex gap-3">
+        <Button
+          type="submit"
+          label={acceptLabel}
+          icon={isEditing ? 'pi pi-pencil' : 'pi pi-plus'}
+          className="p-button-primary"
+        />
+        <Button
+          type="button"
+          label="Cancel"
+          onClick={handleCancel}
+          icon="pi pi-times"
+          className="p-button-secondary"
+        />
+      </div>
     </form>
   )
 }

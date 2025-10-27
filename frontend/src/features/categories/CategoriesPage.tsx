@@ -21,21 +21,31 @@ const CategoriesPage: React.FC = () => {
   }
 
   return (
-    <div className="p-4">
-      <CategoryForm />
-      <DataTable value={categories} loading={loading} stripedRows>
-        <Column field="name" header="Category" />
-        <Column
-          header="Actions"
-          body={(category: Category) => (
-            <Button
-              icon="pi pi-trash"
-              className="p-button-danger"
-              onClick={() => handleDelete(category.id)}
+    <div className="">
+      <div className="bg-white/60 border rounded-2xl p-4">
+        <CategoryForm />
+        <div className="mt-4">
+          <DataTable
+            value={categories}
+            loading={loading}
+            stripedRows
+            className="rounded-lg overflow-hidden"
+          >
+            <Column field="name" header="Category" />
+            <Column
+              style={{ width: '10%' }}
+              header="Actions"
+              body={(category: Category) => (
+                <Button
+                  icon="pi pi-trash"
+                  className="p-button-danger p-button-rounded"
+                  onClick={() => handleDelete(category.id)}
+                />
+              )}
             />
-          )}
-        />
-      </DataTable>
+          </DataTable>
+        </div>
+      </div>
     </div>
   )
 }

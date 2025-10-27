@@ -20,18 +20,23 @@ const CategoryForm: React.FC = () => {
   }
 
   return (
-    <>
-      <h2 className="text-xl font-semibold mb-4">Category Form</h2>
+    <div className="bg-white/60 border rounded-xl p-4 mb-4">
+      <h2 className="text-lg font-medium text-slate-700 mb-3">Add Category</h2>
 
-      <form onSubmit={handleSubmit(onSubmit)} className="flex items-center gap-2 mb-4">
+      <form onSubmit={handleSubmit(onSubmit)} className="items-center gap-3 grid grid-cols-6">
         <InputText
           {...register('name', { required: true })}
           placeholder="New category"
-          className="p-inputtext-sm"
+          className="w-full p-3 rounded-lg col-span-4"
         />
-        <Button label="Add" icon="pi pi-plus" type="submit" />
+        <Button
+          label="Add"
+          icon="pi pi-plus"
+          type="submit"
+          className="p-button-rounded p-button-success col-span-2"
+        />
       </form>
-    </>
+    </div>
   )
 }
 
