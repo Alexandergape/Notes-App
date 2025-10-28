@@ -34,8 +34,9 @@ export const toggleArchiveNote = createAsyncThunk('notes/toggleArchiveNote', asy
 
 export const fetchNotesByCategory = createAsyncThunk(
   'notes/fetchNotesByCategory',
-  async (categoryId: number) => {
-    const res = await api.get<Note[]>(`/notes/category/id/${categoryId}`)
+  async ({ categoryIds, archived }: { categoryIds: number[]; archived: boolean }) => {
+    const query = categoryIds.join(',')
+    const res = await api.get<Note[]>(`/notes/category/ids/${archived}?categories=${query}`)
     return res.data
   }
 )

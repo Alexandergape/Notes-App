@@ -19,7 +19,9 @@ public interface NoteServiceInterface {
 
     NoteResponse toggleArchive(Long id);
 
-    List<NoteResponse> getNotesByCategoryId(Long categoryId);
+    List<NoteResponse> getNotesByCategories(List<Long> categoryIds, boolean archived);
 
     List<NoteResponse> getNotesByCategoryName(String categoryName);
+
+    void removeCategoryFromNotes(Long categoryId);
 }

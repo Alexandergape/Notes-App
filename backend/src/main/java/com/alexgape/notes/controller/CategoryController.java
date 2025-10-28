@@ -5,6 +5,7 @@ import com.alexgape.notes.model.responses.CategoryResponse;
 import com.alexgape.notes.service.CategoryServiceInterface;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,17 +18,18 @@ public class CategoryController {
     private CategoryServiceInterface categoryServiceInterface;
 
     @GetMapping
-    public List<CategoryResponse> getAllCategories() {
-        return categoryServiceInterface.getAllCategories();
+    public ResponseEntity<List<CategoryResponse>> getAllCategories() {
+        return ResponseEntity.ok(categoryServiceInterface.getAllCategories());
     }
 
     @PostMapping
-    public CategoryResponse createCategory(@Valid @RequestBody CategoryRequest categoryRequest) {
-        return categoryServiceInterface.createCategory(categoryRequest);
+    public ResponseEntity<CategoryResponse> createCategory(@Valid @RequestBody CategoryRequest categoryRequest) {
+        return ResponseEntity.ok(categoryServiceInterface.createCategory(categoryRequest));
     }
 
     @DeleteMapping("/{id}")
-    public Void deleteCategory(@PathVariable Long id) {
-        return categoryServiceInterface.deleteCategory(id);
+    public ResponseEntity<Void> deleteCategory(@PathVariable Long id) {
+        categoryServiceInterface.deleteCategory(id);
+        return ResponseEntity.noContent().build();
     }
 }

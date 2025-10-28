@@ -33,7 +33,12 @@ const NotesList = () => {
   useEffect(() => {
     // filter notes based on selected categories
     if (selectedCategories.length > 0) {
-      dispatch(fetchNotesByCategory(selectedCategories[0]))
+      dispatch(
+        fetchNotesByCategory({
+          categoryIds: selectedCategories,
+          archived: showArchived
+        })
+      )
         .unwrap()
         .then((res) => {
           setDisplayedNotes(res)

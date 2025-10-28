@@ -5,6 +5,7 @@ import com.alexgape.notes.model.responses.NoteResponse;
 import com.alexgape.notes.service.NoteServiceInterface;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,43 +17,44 @@ public class NoteController {
     @Autowired
     private NoteServiceInterface noteServiceInterface;
 
-    @GetMapping("")
-    public List<NoteResponse> getActiveNotes() {
-        return noteServiceInterface.getActiveNotes();
+    @GetMapping
+    public ResponseEntity<List<NoteResponse>> getActiveNotes() {
+        return ResponseEntity.ok(noteServiceInterface.getActiveNotes());
     }
 
     @GetMapping("/archived")
-    public List<NoteResponse> getArchivedNotes() {
-        return noteServiceInterface.getArchivedNotes();
+    public ResponseEntity<List<NoteResponse>> getArchivedNotes() {
+        return ResponseEntity.ok(noteServiceInterface.getArchivedNotes());
     }
 
     @PostMapping
-    public NoteResponse createNote(@Valid @RequestBody NoteRequest noteRequest) {
-        return noteServiceInterface.createNote(noteRequest);
+    public ResponseEntity<NoteResponse> createNote(@Valid @RequestBody NoteRequest noteRequest) {
+        return ResponseEntity.ok(noteServiceInterface.createNote(noteRequest));
     }
 
     @PutMapping("/{id}")
-    public NoteResponse updateNote(@PathVariable Long id, @Valid @RequestBody NoteRequest noteRequest) {
-        return noteServiceInterface.updateNote(id, noteRequest);
+    public ResponseEntity<NoteResponse> updateNote(@PathVariable Long id, @Valid @RequestBody NoteRequest noteRequest) {
+        return ResponseEntity.ok(noteServiceInterface.updateNote(id, noteRequest));
     }
 
     @DeleteMapping("/{id}")
-    public void deleteNote(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteNote(@PathVariable Long id) {
         noteServiceInterface.deleteNote(id);
+        return ResponseEntity.noContent().build();
     }
 
     @PatchMapping("/{id}/archive")
-    public NoteResponse toggleArchive(@PathVariable Long id) {
-        return noteServiceInterface.toggleArchive(id);
+    public ResponseEntity<NoteResponse> toggleArchive(@PathVariable Long id) {
+        return ResponseEntity.ok(noteServiceInterface.toggleArchive(id));
     }
 
-    @GetMapping("/category/id/{categoryId}")
-    public List<NoteResponse> getNotesByCategory(@PathVariable Long categoryId) {
-        return noteServiceInterface.getNotesByCategoryId(categoryId);
+    @GetMapping("/category/ids/{archived}")
+    public ResponseEntity<List<NoteResponse>> getNotesByCategory(@RequestParam List<Long> categories, @PathVariable boolean archived) {
+        return ResponseEntity.ok(noteServiceInterface.getNotesByCategories(categories, archived));
     }
 
     @GetMapping("/category/name")
-    public List<NoteResponse> getNotesByCategory(@RequestParam String categoryName) {
-        return noteServiceInterface.getNotesByCategoryName(categoryName);
+    public ResponseEntity<List<NoteResponse>> getNotesByCategory(@RequestParam String categoryName) {
+        return ResponseEntity.ok(noteServiceInterface.getNotesByCategoryName(categoryName));
     }
 }

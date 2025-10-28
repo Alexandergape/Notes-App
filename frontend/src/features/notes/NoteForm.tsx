@@ -12,7 +12,9 @@ import { MultiSelect } from 'primereact/multiselect'
 const NoteForm = () => {
   const dispatch = useDispatch<AppDispatch>()
   const form = useForm<Note>()
-  const [acceptLabel, setAcceptLabel] = useState('Add Note')
+
+  const ADD_NOTE = 'Add Note'
+  const [acceptLabel, setAcceptLabel] = useState(ADD_NOTE)
   const { isEditing, currentNote } = useSelector((state: RootState) => state.notes)
   const { categories } = useSelector((state: RootState) => state.categories)
 
@@ -43,7 +45,7 @@ const NoteForm = () => {
 
   const handleCancel = () => {
     form.reset()
-    setAcceptLabel('Add Note')
+    setAcceptLabel(ADD_NOTE)
     dispatch(setCurrentNote(null))
     dispatch(setIsEditing(false))
   }
@@ -56,7 +58,7 @@ const NoteForm = () => {
       form.setValue('content', currentNote?.content || '')
       form.setValue('categories', currentNote?.categories || [])
     } else {
-      setAcceptLabel('Add Note')
+      setAcceptLabel(ADD_NOTE)
     }
   }, [isEditing, currentNote, form])
 

@@ -11,8 +11,9 @@ public interface NoteRepository extends JpaRepository<NoteEntity, Long> {
 
     List<NoteEntity> findByArchived(boolean archived);
 
-    @Query("SELECT n FROM NoteEntity n JOIN n.categories c WHERE c.id = :categoryId")
-    List<NoteEntity> findByCategoryId(@Param("categoryId") Long categoryId);
+    @Query("SELECT n FROM NoteEntity n JOIN n.categories c WHERE c.id IN :categoryIds AND (:archived IS NULL OR n.archived = :archived)")
+    List<NoteEntity> findByCategoryIds(@Param("categoryIds") List<Long> categoryIds, @Param("archived") Boolean archived);
+
 
     @Query("SELECT n FROM NoteEntity n JOIN n.categories c WHERE LOWER(c.name) LIKE LOWER(CONCAT('%', :categoryName, '%'))")
     List<NoteEntity> findByCategoryName(@Param("categoryName") String categoryName);
